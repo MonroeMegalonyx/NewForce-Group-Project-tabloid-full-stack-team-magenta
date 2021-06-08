@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -6,11 +6,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Tabloid.Repositories;
 
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
 namespace Tabloid.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoryController : Controller
+    public class CategoryController : ControllerBase
     {
         private readonly ICategoryRepository _categoryRepository;
         public CategoryController(ICategoryRepository categoryRepository)
@@ -18,83 +21,36 @@ namespace Tabloid.Controllers
             _categoryRepository = categoryRepository;
         }
 
-        // GET: CategoryController
+        // GET: api/<CategoryController>
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok(_categoryRepository.GetAll());
+        }
+
+        // GET api/<CategoryController>/5
+        [HttpGet("{id}")]
+        public string Get(int id)
+        {
+            return "value";
+        }
+
+        // POST api/<CategoryController>
         [HttpPost]
-        public ActionResult Index()
+        public void Post([FromBody] string value)
         {
-            return View(_categoryRepository.GetAll());
         }
 
-        // GET: CategoryController/Details/5
-        [HttpPost("{id}")]
-        public ActionResult Details(int id)
+        // PUT api/<CategoryController>/5
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] string value)
         {
-            return View();
         }
 
-        // GET: CategoryController/Create
-        public ActionResult Create()
+        // DELETE api/<CategoryController>/5
+        [HttpDelete("{id}")]
+        public void Delete(int id)
         {
-            return View();
-        }
-
-        // POST: CategoryController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: CategoryController/Edit/5
-        [HttpPost("{id}")]
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: CategoryController/Edit/5
-        [HttpPost("{id}")]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: CategoryController/Delete/5
-        [HttpPost("{id}")]
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: CategoryController/Delete/5
-        [HttpPost("{id}")]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }
