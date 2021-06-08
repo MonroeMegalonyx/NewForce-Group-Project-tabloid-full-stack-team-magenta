@@ -13,7 +13,7 @@ const CategoryList = () => {
         <div className="container">
           <div className="row justify-content-center">
             <div className="cards-column">
-              {category.map((thisCategory) => (
+              {category.sort((a, b) => a.name.localeCompare(b.name)).map((thisCategory) => (
                 <Category key={thisCategory.id} category={thisCategory} />
               ))}
             </div>
