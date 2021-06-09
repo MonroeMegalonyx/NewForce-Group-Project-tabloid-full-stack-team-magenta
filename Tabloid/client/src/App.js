@@ -4,6 +4,7 @@ import { UserProfileProvider } from "./providers/UserProfileProvider";
 import Header from "./components/Header";
 import ApplicationViews from "./components/ApplicationViews";
 import { TagProvider } from './providers/TagProvider';
+import { CategoryProvider } from "./providers/CategoryProvider"
 
 function App() {
   return (
@@ -13,9 +14,13 @@ function App() {
         <Header />
         <ApplicationViews />
         </TagProvider>
+        <CategoryProvider>
+        <Header />
+        <ApplicationViews />
+        </CategoryProvider>
       </UserProfileProvider>
     </Router>
   );
 }
 
-export default App;
+export default App
