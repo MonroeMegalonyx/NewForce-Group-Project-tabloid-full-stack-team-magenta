@@ -5,20 +5,20 @@ import Category from "./Category";
 export default function CategoryList() {
     const history = useHistory();
     const { addCategory } = useContext(CategoryContext);
-    const [category, setCategory] = useState();
+    const [categoryName, setCategoryName] = useState();
   
     const submitForm = (e) => {
         e.preventDefault();
-        addCategory({ text: quoteText })
-          .then(() => history.push("/"))
+        addCategory({ name: categoryName })
+          .then(() => history.push("/category"))
           .catch((err) => alert(`An error ocurred: ${err.message}`));
       };
     
       return (
         <Form onSubmit={submitForm}>
           <FormGroup>
-            <Label for="quoteText">Quote</Label>
-            <Input id="quoteText" type="textarea" onChange={e => setQuoteText(e.target.value)} />
+            <Label for="categoryName">Category</Label>
+            <Input id="categoryName" type="textarea" onChange={e => setCategoryName(e.target.value)} />
           </FormGroup>
           <FormGroup>
             <Button>Save</Button>
