@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext } from "react";
 import { NavLink as RRNavLink } from "react-router-dom";
 import {
   Collapse,
@@ -7,8 +7,8 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink
-} from 'reactstrap';
+  NavLink,
+} from "reactstrap";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 
 export default function Header() {
@@ -28,16 +28,33 @@ export default function Header() {
             {/* When isLoggedIn === true, we will render the Home link */}
             {isLoggedIn && (
               <NavItem>
-                <NavLink tag={RRNavLink} to="/">Home</NavLink>
-                <NavLink tag={RRNavLink} to="/category">Category Management</NavLink>
+                <NavLink tag={RRNavLink} to="/">
+                  Home
+                </NavLink>
               </NavItem>
-              
-              
             )}
           </Nav>
           <Nav navbar>
             {isLoggedIn && (
               <>
+                <NavItem>
+                  <NavLink tag={RRNavLink} to="/posts">
+                    Posts
+                  </NavLink>
+                </NavItem>
+                
+                <NavItem>
+                  <NavLink tag={RRNavLink} to="/category">
+                    Category Management
+                  </NavLink>
+                </NavItem>
+
+                <NavItem>
+                  <NavLink tag={RRNavLink} to="/tags">
+                    Tag Management
+                  </NavLink>
+                </NavItem>
+
                 <NavItem>
                   <a
                     aria-current="page"
@@ -47,11 +64,6 @@ export default function Header() {
                   >
                     Logout
                   </a>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/tags">
-                    Tags
-                  </NavLink>
                 </NavItem>
               </>
             )}
