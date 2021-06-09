@@ -17,8 +17,12 @@ export default function ApplicationViews() {
           {isLoggedIn ? <Hello /> : <Redirect to="/login" />}
         </Route>
 
-        <Route path="/category">
+        <Route path="/category" exact>
           {isLoggedIn ? <CategoryList /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route path="/tags" exact>
+          {isLoggedIn ? <TagList /> : <Redirect to="/login" />}
         </Route>
 
         <Route path="/login">
@@ -28,9 +32,7 @@ export default function ApplicationViews() {
         <Route path="/register">
           <Register />
         </Route>
-        <Route path="/tags">
-          <TagList />
-        </Route>
+        
       </Switch>
     </main>
   );

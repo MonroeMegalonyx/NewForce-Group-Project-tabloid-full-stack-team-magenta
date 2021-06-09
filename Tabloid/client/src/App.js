@@ -11,13 +11,11 @@ function App() {
     <Router>
       <UserProfileProvider>
         <TagProvider>
-        <Header />
-        <ApplicationViews />
+          <CategoryProvider>
+            <Header />
+            <ApplicationViews />
+          </CategoryProvider>
         </TagProvider>
-        <CategoryProvider>
-        <Header />
-        <ApplicationViews />
-        </CategoryProvider>
       </UserProfileProvider>
     </Router>
   );
