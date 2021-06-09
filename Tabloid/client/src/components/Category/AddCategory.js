@@ -1,8 +1,8 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { CategoryContext } from "../../providers/CategoryProvider";
-import Category from "./Category";
-
-export default function CategoryList() {
+import { useHistory } from "react-router-dom";
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+export default function CreateCategory() {
     const history = useHistory();
     const { addCategory } = useContext(CategoryContext);
     const [categoryName, setCategoryName] = useState();
@@ -18,7 +18,7 @@ export default function CategoryList() {
         <Form onSubmit={submitForm}>
           <FormGroup>
             <Label for="categoryName">Category</Label>
-            <Input id="categoryName" type="textarea" onChange={e => setCategoryName(e.target.value)} />
+            <Input id="categoryName" type="text" placeholder="Please enter the new category name..." onChange={e => setCategoryName(e.target.value)} />
           </FormGroup>
           <FormGroup>
             <Button>Save</Button>

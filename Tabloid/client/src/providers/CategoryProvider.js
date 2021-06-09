@@ -23,7 +23,7 @@ export const CategoryProvider = (props) => {
                 .then(setCategory));
 
     const addCategory = (category) =>
-        getToken().then((token) =>
+       getToken().then((token) =>
             fetch("/api/category/", {
                 method: "POST",
                 headers: {
@@ -31,11 +31,6 @@ export const CategoryProvider = (props) => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(category)
-            }).then(resp => {
-                if (resp.ok) {
-                    return resp.json();
-                }
-                throw new Error("Unauthorized");
             }));
 
 
