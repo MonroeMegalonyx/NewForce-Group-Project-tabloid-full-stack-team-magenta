@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext } from "react";
 import { NavLink as RRNavLink } from "react-router-dom";
 import {
   Collapse,
@@ -7,8 +7,8 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink
-} from 'reactstrap';
+  NavLink,
+} from "reactstrap";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 
 export default function Header() {
@@ -19,39 +19,68 @@ export default function Header() {
   return (
     <div>
       <Navbar color="light" light expand="md">
-        <NavbarBrand tag={RRNavLink} to="/">Tabloid</NavbarBrand>
+        <NavbarBrand tag={RRNavLink} to="/">
+          Tabloid
+        </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
-            { /* When isLoggedIn === true, we will render the Home link */ }
-            {isLoggedIn &&
+            {/* When isLoggedIn === true, we will render the Home link */}
+            {isLoggedIn && (
               <NavItem>
-                <NavLink tag={RRNavLink} to="/">Home</NavLink>
+                <NavLink tag={RRNavLink} to="/">
+                  Home
+                </NavLink>
               </NavItem>
-            }
+            )}
           </Nav>
           <Nav navbar>
-            {isLoggedIn &&
+            {isLoggedIn && (
               <>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/posts">Posts</NavLink>
+                  <NavLink tag={RRNavLink} to="/posts">
+                    Posts
+                  </NavLink>
                 </NavItem>
+                
                 <NavItem>
-                  <a aria-current="page" className="nav-link"
-                    style={{ cursor: "pointer" }} onClick={logout}>Logout</a>
+                  <NavLink tag={RRNavLink} to="/category">
+                    Category Management
+                  </NavLink>
+                </NavItem>
+
+                <NavItem>
+                  <NavLink tag={RRNavLink} to="/tags">
+                    Tag Management
+                  </NavLink>
+                </NavItem>
+
+                <NavItem>
+                  <a
+                    aria-current="page"
+                    className="nav-link"
+                    style={{ cursor: "pointer" }}
+                    onClick={logout}
+                  >
+                    Logout
+                  </a>
                 </NavItem>
               </>
-            }
-            {!isLoggedIn &&
+            )}
+            {!isLoggedIn && (
               <>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/login">Login</NavLink>
+                  <NavLink tag={RRNavLink} to="/login">
+                    Login
+                  </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/register">Register</NavLink>
+                  <NavLink tag={RRNavLink} to="/register">
+                    Register
+                  </NavLink>
                 </NavItem>
               </>
-            }
+            )}
           </Nav>
         </Collapse>
       </Navbar>
