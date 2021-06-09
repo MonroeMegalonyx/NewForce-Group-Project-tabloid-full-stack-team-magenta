@@ -7,32 +7,45 @@ import { UserProfileContext } from "./UserProfileProvider";
 export const TagContext = React.createContext();
 
 export function TagProvider(props){
-    const apiUrl = "/api/tag";
+  const apiUrl = "/api/tag";
 
-    const { getToken } = useContext(UserProfileContext)
+  const { getToken } = useContext(UserProfileContext);
 
-    const [ tags, setTags ] = useState([]);
+  const [tags, setTags] = useState([]);
 
-      const getAllTags = () => {
-        return getToken().then((token) =>
-          fetch("/api/tag", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
-            .then((res) => res.json())
-            .then(setTags)
-        );
-      };
+  const getAllTags = () => {
+    return getToken().then((token) =>
+      fetch("/api/tag", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then(setTags)
+    );
+  };
 
-      return (
-        <TagContext.Provider
-          value={{
-            tags,
-            getAllTags,
-          }}
-        >
-          {props.children}
-        </TagContext.Provider>
-      );
+  const addTag = (tag) => {
+    return getToken().then((token) =>
+    fetch("/api/tag", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(tag),
+    }));
+  };
+
+  return (
+    <TagContext.Provider
+      value={{
+        tags,
+        getAllTags,
+        addTag,
+      }}
+    >
+      {props.children}
+    </TagContext.Provider>
+  );
 }
