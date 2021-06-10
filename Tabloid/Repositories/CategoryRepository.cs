@@ -74,5 +74,17 @@ namespace Tabloid.Repositories
             }
         }
 
+        public Category GetById(int id)
+        {
+            return null;
+        }
+
+        public void Update(Category category)
+        {
+           
+        }
+
+
+
     }
 }
