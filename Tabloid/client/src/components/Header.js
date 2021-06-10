@@ -51,7 +51,7 @@ export default function Header() {
 
                 <NavItem>
                   <NavLink tag={RRNavLink} to="/tags">
-                    Tag Management
+                    Tag 
                   </NavLink>
                 </NavItem>
 
