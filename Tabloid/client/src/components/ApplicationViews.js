@@ -5,6 +5,7 @@ import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
 import PostList from "./posts/PostList";
+import PostForm from "./posts/PostForm";
 import TagList from "./tagComponents/TagList";
 import CategoryList from "./CategoryList"
 
@@ -20,6 +21,10 @@ export default function ApplicationViews() {
 
         <Route path="/posts" exact>
           {isLoggedIn ? <PostList /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route path="/posts/new" exact>
+          {isLoggedIn ? <PostForm /> : <Redirect to="/login" />}
         </Route>
         
         <Route path="/category" exact>

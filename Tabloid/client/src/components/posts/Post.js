@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardImg, CardBody } from "reactstrap";
 
 const Post = ({ post }) => {
-  console.log(post)
+  //console.log(post)
   return (
     <Card className="m-4">
       <p className="text-left px-2">Posted by: {post.userProfile.fullName}</p>
