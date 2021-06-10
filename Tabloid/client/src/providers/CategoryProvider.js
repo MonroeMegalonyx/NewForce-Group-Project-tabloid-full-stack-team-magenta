@@ -11,20 +11,32 @@ export const CategoryProvider = (props) => {
     const [category, setCategory] = useState([]);
 
 
-    const getAllCategories = () => 
+    const getAllCategories = () =>
         getToken().then((token) =>
             fetch("/api/category", {
                 method: "GET",
                 headers: {
-                  Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${token}`
                 }
-              })
+            })
                 .then(res => res.json())
                 .then(setCategory));
-    
+
+    const addCategory = (category) =>
+       getToken().then((token) =>
+            fetch("/api/category/", {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(category)
+            }));
+
+
 
     return (
-        <CategoryContext.Provider value={{ category, getAllCategories }}>
+        <CategoryContext.Provider value={{ category, getAllCategories, addCategory }}>
             {props.children}
         </CategoryContext.Provider>
     );
