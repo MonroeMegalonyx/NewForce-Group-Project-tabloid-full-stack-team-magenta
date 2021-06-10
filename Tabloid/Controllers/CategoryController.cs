@@ -37,11 +37,11 @@ namespace Tabloid.Controllers
         }
 
         //// POST api/<CategoryController>
-        //[HttpPost]
-        //public void Post(Category category)
-        //{
-        //    _categoryRepository.Add(category);
-        //}
+        [HttpPost]
+        public void Post(Category category)
+        {
+            _categoryRepository.Add(category);
+        }
 
         // PUT api/<CategoryController>/5
         [HttpPut("{id}")]
@@ -51,8 +51,11 @@ namespace Tabloid.Controllers
 
         // DELETE api/<CategoryController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            _categoryRepository.Delete(id);
+            return NoContent();
         }
     }
+
 }
