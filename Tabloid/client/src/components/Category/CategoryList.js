@@ -1,35 +1,25 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CategoryContext } from "../../providers/CategoryProvider";
 import Category from "./Category";
-import { NavLink as RRNavLink } from "react-router-dom";
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, } from "reactstrap";
+import { useHistory } from "react-router-dom";
 
 const CategoryList = () => {
+  const history = useHistory();
   const { category, getAllCategories } = useContext(CategoryContext);
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
-
 
   useEffect(() => {
     getAllCategories();
   }, []);
 
+  function handleClick() {
+    history.push("/category/create");
+  }
+
   return (
     <div className="container">
       <div>
-        <Navbar color="light" light expand="md">
-          <NavbarToggler onClick={toggle} />
-          <Collapse isOpen={isOpen} navbar>
-            <Nav className="mr-auto" navbar>
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/category/create">
-                  Create Category
-                </NavLink>
-                </NavItem>
-            </Nav>
-          </Collapse>
-        </Navbar>
-
+      <button className="btn btn-primary"
+        onClick={handleClick}>Create Category</button>
       </div>
       <div className="row justify-content-center">
         <div className="cards-column">
