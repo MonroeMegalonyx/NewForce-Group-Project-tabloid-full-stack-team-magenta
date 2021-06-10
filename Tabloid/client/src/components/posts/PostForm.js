@@ -9,7 +9,7 @@ const PostForm = () => {
   const { category, getAllCategories } = useContext(CategoryContext);
 
   // get the logged in user from session storage
-  const loggedInUserId = sessionStorage.getItem("userProfile");
+  const loggedInUser = sessionStorage.getItem("userProfile");
   // set the local timezone for saving timestamp
   var tzoffset = new Date().getTimezoneOffset() * 60000; //gets offset in milliseconds
 
@@ -55,7 +55,7 @@ const PostForm = () => {
 
     // extract the userID from the loggedinuser string
     function extractId() {
-      var str = loggedInUserId;
+      var str = loggedInUser;
       var matches = str.match(/\d+/g);
       return matches[0];
     }
