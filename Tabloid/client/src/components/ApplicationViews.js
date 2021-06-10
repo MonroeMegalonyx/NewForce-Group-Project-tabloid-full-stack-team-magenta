@@ -7,7 +7,9 @@ import Hello from "./Hello";
 import PostList from "./posts/PostList";
 import PostForm from "./posts/PostForm";
 import TagList from "./tagComponents/TagList";
-import CategoryList from "./CategoryList"
+import AddTagForm from "./tagComponents/AddTagForm"
+import CategoryList from "./Category/CategoryList"
+import CreateCategory from "./Category/AddCategory"
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -31,8 +33,15 @@ export default function ApplicationViews() {
           {isLoggedIn ? <CategoryList /> : <Redirect to="/login" />}
         </Route>
 
+        <Route path="/category/create" exact>
+          {isLoggedIn ? <CreateCategory /> : <Redirect to="/login" />}
+        </Route>
+
         <Route path="/tags" exact>
           {isLoggedIn ? <TagList /> : <Redirect to="/login" />}
+        </Route>
+        <Route path="/tags/addForm" exact>
+          {isLoggedIn ? <AddTagForm /> : <Redirect to="/login" />}
         </Route>
 
         <Route path="/login">
@@ -42,7 +51,6 @@ export default function ApplicationViews() {
         <Route path="/register">
           <Register />
         </Route>
-        
       </Switch>
     </main>
   );

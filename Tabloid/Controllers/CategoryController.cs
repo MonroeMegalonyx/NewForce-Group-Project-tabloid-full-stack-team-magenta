@@ -37,11 +37,11 @@ namespace Tabloid.Controllers
         }
 
         //// POST api/<CategoryController>
-        //[HttpPost]
-        //public void Post(Category category)
-        //{
-        //    _categoryRepository.Add(category);
-        //}
+        [HttpPost]
+        public void Post(Category category)
+        {
+            _categoryRepository.Add(category);
+        }
 
         // PUT api/<CategoryController>/5
         [HttpPut("{id}")]
