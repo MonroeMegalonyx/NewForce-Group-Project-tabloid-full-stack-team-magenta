@@ -6,6 +6,7 @@ import Register from "./Register";
 import Hello from "./Hello";
 import PostList from "./posts/PostList";
 import TagList from "./tagComponents/TagList";
+import AddTagForm from "./tagComponents/AddTagForm"
 import CategoryList from "./Category/CategoryList"
 import CreateCategory from "./Category/AddCategory"
 
@@ -22,7 +23,7 @@ export default function ApplicationViews() {
         <Route path="/posts" exact>
           {isLoggedIn ? <PostList /> : <Redirect to="/login" />}
         </Route>
-        
+
         <Route path="/category" exact>
           {isLoggedIn ? <CategoryList /> : <Redirect to="/login" />}
         </Route>
@@ -34,6 +35,9 @@ export default function ApplicationViews() {
         <Route path="/tags" exact>
           {isLoggedIn ? <TagList /> : <Redirect to="/login" />}
         </Route>
+        <Route path="/tags/addForm" exact>
+          {isLoggedIn ? <AddTagForm /> : <Redirect to="/login" />}
+        </Route>
 
         <Route path="/login">
           <Login />
@@ -42,7 +46,6 @@ export default function ApplicationViews() {
         <Route path="/register">
           <Register />
         </Route>
-        
       </Switch>
     </main>
   );
