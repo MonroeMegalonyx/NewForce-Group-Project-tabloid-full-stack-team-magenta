@@ -7,5 +7,9 @@ namespace Tabloid.Repositories
     {
         List<Category> GetAll();
         void Add(Category category);
+
+        void Update(Category category);
+
+        Category GetById(int id);
     }
 }
