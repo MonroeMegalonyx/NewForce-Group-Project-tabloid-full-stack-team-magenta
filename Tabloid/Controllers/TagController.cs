@@ -36,8 +36,16 @@ namespace Tabloid.Controllers
 
         // POST api/<TagController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post(Tag tag)
         {
+            //var currentUserProfile = GetCurrentUserProfile();
+            //if (currentUserProfile.UserType.Name != "admin")
+            //{
+            //    return Unauthorized();
+            //}
+            //tag.UserProfileId = currentUserProfile.Id;
+            _tagRepository.Add(tag);
+            return CreatedAtAction(nameof(Get), new { id = tag.Id }, tag);
         }
 
         // PUT api/<TagController>/5

@@ -59,6 +59,7 @@ namespace Tabloid.Repositories
                 }
             }
         }
+<<<<<<< HEAD
 
         public void Delete(int id)
         {
@@ -73,5 +74,7 @@ namespace Tabloid.Repositories
                 }
             }
         }
+=======
+>>>>>>> main
     }
 }
