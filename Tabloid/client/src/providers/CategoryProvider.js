@@ -33,6 +33,7 @@ export const CategoryProvider = (props) => {
                 body: JSON.stringify(category)
             }));
 
+<<<<<<< HEAD
     const updateCategory = (categoryId) =>
         getToken().then((token) =>
             fetch(`/api/category/${categoryId}`, {
@@ -48,6 +49,18 @@ export const CategoryProvider = (props) => {
 
     return (
         <CategoryContext.Provider value={{ category, getAllCategories, addCategory, updateCategory }}>
+=======
+    const deleteCategory = (categoryId) =>
+        getToken().then((token) =>
+            fetch(`/api/category/${categoryId}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`                
+                }}).then(getAllCategories));
+
+    return (
+        <CategoryContext.Provider value={{ category, getAllCategories, addCategory, deleteCategory }}>
+>>>>>>> main
             {props.children}
         </CategoryContext.Provider>
     );

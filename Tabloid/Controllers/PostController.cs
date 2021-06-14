@@ -23,23 +23,34 @@ namespace Tabloid.Controllers
             return Ok(_postRepository.GetAllPublishedPosts());
         }
 
-        //[HttpGet("{id}")]
-        //public IActionResult Get(int id)
-        //{
-        //    var post = _postRepository.GetSinglePostById(id);
-        //    if (post == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(post);
-        //}
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            var post = _postRepository.GetSinglePostById(id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+            return Ok(post);
+        }
 
-        //[HttpPost]
-        //public IActionResult Post(Post post)
-        //{
-        //    _postRepository.Add(post);
-        //    return CreatedAtAction("Get", new { id = post.Id }, post);
-        //}
+        [HttpGet("user/{id}")]
+        public IActionResult GetByUserId(int id)
+        {
+            var post = _postRepository.GetAllPostsByUser(id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+            return Ok(post);
+        }
+
+        [HttpPost]
+        public IActionResult Post(Post post)
+        {
+            _postRepository.AddPost(post);
+            return CreatedAtAction("Get", new { id = post.Id }, post);
+        }
 
         //[HttpDelete("{id}")]
         //public IActionResult Delete(int id)

@@ -12,7 +12,10 @@ namespace Tabloid.Models
 
         [MaxLength(50)]
         public string Name { get; set; }
+
+        public List<Post> Post { get; set; }
     }
 }
+
 
 
