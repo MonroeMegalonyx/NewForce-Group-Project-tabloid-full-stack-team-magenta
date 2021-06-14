@@ -34,6 +34,17 @@ namespace Tabloid.Controllers
             return Ok(post);
         }
 
+        [HttpGet("user/{id}")]
+        public IActionResult GetByUserId(int id)
+        {
+            var post = _postRepository.GetAllPostsByUser(id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+            return Ok(post);
+        }
+
         [HttpPost]
         public IActionResult Post(Post post)
         {
