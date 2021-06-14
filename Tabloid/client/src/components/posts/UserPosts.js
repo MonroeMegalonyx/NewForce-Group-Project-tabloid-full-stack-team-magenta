@@ -5,12 +5,22 @@ import Button from "reactstrap/lib/Button";
 import { useHistory } from "react-router-dom";
 
 
-const PostList = () => {
-  const { posts, getAllPosts } = useContext(PostContext);
+const UserPostList = () => {
+  const { posts, getUsersPosts } = useContext(PostContext);
   const history = useHistory();
 
+
+  const loggedInUser = sessionStorage.getItem("userProfile");
+  function extractId() {
+    var str = loggedInUser;
+    var matches = str.match(/\d+/g);
+    return matches[0];
+  }
+
+  const loggedInUserId = extractId()
+
   useEffect(() => {
-    getAllPosts();
+    getUsersPosts(loggedInUserId);
   }, []);
 
   return (
@@ -34,4 +44,4 @@ const PostList = () => {
   );
 };
 
-export default PostList;
+export default UserPostList;
