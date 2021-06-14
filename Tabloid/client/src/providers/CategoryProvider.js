@@ -23,7 +23,7 @@ export const CategoryProvider = (props) => {
                 .then(setCategory));
 
     const addCategory = (category) =>
-       getToken().then((token) =>
+        getToken().then((token) =>
             fetch("/api/category/", {
                 method: "POST",
                 headers: {
@@ -33,10 +33,16 @@ export const CategoryProvider = (props) => {
                 body: JSON.stringify(category)
             }));
 
-
+    const deleteCategory = (categoryId) =>
+        getToken().then((token) =>
+            fetch(`/api/category/${categoryId}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`                
+                }}).then(getAllCategories));
 
     return (
-        <CategoryContext.Provider value={{ category, getAllCategories, addCategory }}>
+        <CategoryContext.Provider value={{ category, getAllCategories, addCategory, deleteCategory }}>
             {props.children}
         </CategoryContext.Provider>
     );
