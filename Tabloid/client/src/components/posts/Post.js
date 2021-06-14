@@ -1,8 +1,15 @@
 import React from "react";
-import { Card, CardImg, CardBody } from "reactstrap";
+import { Card, CardBody } from "reactstrap";
+import Button from "reactstrap/lib/Button";
+import { useHistory } from "react-router-dom";
+
+
 
 const Post = ({ post }) => {
   //console.log(post)
+  const history = useHistory();
+
+  
   return (
     <Card className="m-4">
       <p className="text-left px-2">Posted by: {post.userProfile.fullName}</p>
@@ -13,6 +20,8 @@ const Post = ({ post }) => {
         <p>Category: {post.category.name}</p>
       </CardBody>
       <p className="text-left px-2">Published: {post.publishDateTime}</p>
+      <Button onClick={() => history.push(`/posts/details/${post.id}`)}>Read Post</Button>
+
     </Card>
   );
 };

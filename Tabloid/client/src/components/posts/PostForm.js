@@ -89,7 +89,7 @@ const PostForm = () => {
     //console.log(response);
     //reset response
     setResponse(null);
-    return <Redirect to={'/posts/detail/'+response} />;
+    return <Redirect to={'/posts/details/'+response} />;
   } else {
     return (
       <form className="postForm">
