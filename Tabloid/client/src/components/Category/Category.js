@@ -8,9 +8,9 @@ export default function Category(category) {
   const {updateCategory} = useContext(CategoryContext)
 
   const handleEdit = () => {
-      history.push("/category")
+      history.push("/category/")
     }
-  }
+  
 
     return(
         <Card className="m-4">
