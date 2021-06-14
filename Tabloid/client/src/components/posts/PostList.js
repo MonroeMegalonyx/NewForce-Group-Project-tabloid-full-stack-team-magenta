@@ -1,9 +1,13 @@
 import React, { useContext, useEffect } from "react";
 import { PostContext } from "../../providers/PostProvider";
 import Post from "./Post";
+import Button from "reactstrap/lib/Button";
+import { useHistory } from "react-router-dom";
+
 
 const PostList = () => {
   const { posts, getAllPosts } = useContext(PostContext);
+  const history = useHistory();
 
   useEffect(() => {
     getAllPosts();
@@ -11,6 +15,8 @@ const PostList = () => {
 
   return (
     <div className="container">
+      <Button onClick={() => history.push("/posts/new")}>New Post</Button>
+
       <div className="row justify-content-center">
         <div className="cards-column">
           {posts
