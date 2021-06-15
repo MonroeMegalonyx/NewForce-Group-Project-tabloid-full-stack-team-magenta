@@ -59,16 +59,19 @@ namespace Tabloid.Controllers
         //    return NoContent();
         //}
 
-        //[HttpPut("{id}")]
-        //public IActionResult Put(int id, Post post)
-        //{
-        //    if (id != post.Id)
-        //    {
-        //        return BadRequest();
-        //    }
+        [HttpPut("{id}")]
+        public IActionResult Put(int id)
 
-        //    _postRepository.EditPost(post);
-        //    return NoContent();
-        //}
+        {
+            Post post = _postRepository.GetSinglePostById(id);
+
+            if (post == null)
+            {
+                return BadRequest();
+            }
+
+            _postRepository.EditPost(id);
+            return NoContent();
+        }
     }
 }
