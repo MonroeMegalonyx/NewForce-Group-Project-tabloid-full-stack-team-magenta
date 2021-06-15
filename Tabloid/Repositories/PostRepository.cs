@@ -203,25 +203,25 @@ namespace Tabloid.Repositories
         //    }
         //}
 
-        //public void DeletePost(int postId)
-        //{
-        //    using (SqlConnection conn = Connection)
-        //    {
-        //        conn.Open();
+        public void DeletePost(int postId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
 
-        //        using (SqlCommand cmd = conn.CreateCommand())
-        //        {
-        //            cmd.CommandText = @"
-        //                    DELETE FROM Post
-        //                    WHERE Id = @id
-        //                ";
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                            DELETE FROM Post
+                            WHERE Id = @id
+                        ";
 
-        //            cmd.Parameters.AddWithValue("@id", postId);
+                    cmd.Parameters.AddWithValue("@id", postId);
 
-        //            cmd.ExecuteNonQuery();
-        //        }
-        //    }
-        //}
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
 
         //public void EditPost(Post post)
         //{
