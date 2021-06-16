@@ -15,15 +15,16 @@ export default function TagList() {
 
   return (
     <section>
+      <Button onClick={() => history.push("/tags/addForm")}>Create Tag</Button>
       {tags
         // the sort will show the tags alphabetically
         .sort((a, b) => a.name.localeCompare(b.name))
-        //mapping through all tags in the database to display 
+
+        //mapping through all tags in the database to display
         .map((tag) => (
           <Tag key={tag.id} tag={tag} />
         ))}
-      <Button onClick={() => history.push("/tags/addForm")}>Create Tag</Button>
     </section>
-    //button has anonymous onclick function to route to the addForm 
+    //button has anonymous onclick function to route to the addForm
   );
 }
