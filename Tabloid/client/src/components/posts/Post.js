@@ -4,8 +4,19 @@ import Button from "reactstrap/lib/Button";
 import { useHistory } from "react-router-dom";
 
 const Post = ({ post }) => {
+
   //console.log(post)
   const history = useHistory();
+
+  // Get the user ID to show delete button
+  const loggedInUser = sessionStorage.getItem("userProfile");
+  function extractId() {
+    var str = loggedInUser;
+    var matches = str.match(/\d+/g);
+    return matches[0];
+  }
+
+  const loggedInUserId = extractId()
 
   return (
     <Card className="m-4">
@@ -20,9 +31,7 @@ const Post = ({ post }) => {
       <Button onClick={() => history.push(`/posts/details/${post.id}`)}>
         Read Post
       </Button>
-      <Button onClick={() => history.push(`/posts/edit/${post.id}`)}>
-        Edit Post
-      </Button>
+      {post.userProfile?.id==loggedInUserId ? <Button onClick={() => history.push(`/posts/edit/${post.id}`)}>Edit this Post</Button> : null}
     </Card>
   );
 };

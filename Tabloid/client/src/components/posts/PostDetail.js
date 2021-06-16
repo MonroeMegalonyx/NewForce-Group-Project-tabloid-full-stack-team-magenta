@@ -64,7 +64,8 @@ export const PostDetail = () => {
         <p>
           <i>Category: {post.category?.name}</i>
         </p>
-        <Button onClick={() => history.push(`/posts/edit/${post.id}`)}> Edit this Post</Button>
+        <Button onClick={() => history.push(`/posts`)}>Return to List</Button>
+        {post.userProfile?.id==loggedInUserId ? <Button onClick={() => history.push(`/posts/edit/${post.id}`)}>Edit this Post</Button> : null}
         {post.userProfile?.id==loggedInUserId ? <Button onClick={handleDelete}>Delete this Post</Button> : null}
       </CardBody>
     </Card>
