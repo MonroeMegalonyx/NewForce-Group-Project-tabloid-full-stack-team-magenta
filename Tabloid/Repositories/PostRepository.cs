@@ -157,52 +157,6 @@ namespace Tabloid.Repositories
             }
         }
 
-        public Post EditPost(int id)
-        {
-            using (SqlConnection conn = Connection)
-            {
-                conn.Open();
-                using (SqlCommand cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = @"
-                        SELECT p.Id, p.Title, p.Content, 
-                              p.ImageLocation AS HeaderImage,
-                              p.CreateDateTime, p.PublishDateTime, p.IsApproved,
-                              p.CategoryId, p.UserProfileId
-                        FROM Post p
-                        WHERE Id = @id
-                    ";
-
-                    cmd.Parameters.AddWithValue("@id", id);
-
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    if (reader.Read())
-                    {
-                        Post post = new Post
-                        {
-                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                            Title = reader.GetString(reader.GetOrdinal("Title")),
-                            Content = reader.GetString(reader.GetOrdinal("Content")),
-                            ImageLocation = DbUtils.GetNullableString(reader, "HeaderImage"),
-                            CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
-                            PublishDateTime = DbUtils.GetNullableDateTime(reader, "PublishDateTime"),
-                            CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId")),
-                            UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId"))
-                        };
-
-                        reader.Close();
-                        return post;
-                    }
-                    else
-                    {
-                        reader.Close();
-                        return null;
-                    }
-                }
-            }
-        }
-
         //public void DeletePost(int postId)
         //{
         //    using (SqlConnection conn = Connection)
@@ -223,34 +177,80 @@ namespace Tabloid.Repositories
         //    }
         //}
 
-        //public void EditPost(Post post)
+        //public Post EditPost(int id)
         //{
         //    using (SqlConnection conn = Connection)
         //    {
         //        conn.Open();
-
         //        using (SqlCommand cmd = conn.CreateCommand())
         //        {
         //            cmd.CommandText = @"
-        //                    UPDATE Post
-        //                    SET 
-        //                        Title = @title, 
-        //                        Content = @content, 
-        //                        CategoryId = @categoryid, 
-        //                        ImageLocation = @headerimage
+        //                SELECT p.Id, p.Title, p.Content, 
+        //                      p.ImageLocation AS HeaderImage,
+        //                      p.CreateDateTime, p.PublishDateTime, p.IsApproved,
+        //                      p.CategoryId, p.UserProfileId
+        //                FROM Post p
+        //                WHERE Id = @id
+        //            ";
 
-        //                    WHERE Id = @id";
+        //            cmd.Parameters.AddWithValue("@id", id);
 
-        //            cmd.Parameters.AddWithValue("@title", post.Title);
-        //            cmd.Parameters.AddWithValue("@content", post.Content);
-        //            cmd.Parameters.AddWithValue("@categoryid", post.CategoryId);
-        //            cmd.Parameters.AddWithValue("@headerimage", post.ImageLocation);
-        //            cmd.Parameters.AddWithValue("@id", post.Id);
+        //            SqlDataReader reader = cmd.ExecuteReader();
 
-        //            cmd.ExecuteNonQuery();
+        //            if (reader.Read())
+        //            {
+        //                Post post = new Post
+        //                {
+        //                    Id = reader.GetInt32(reader.GetOrdinal("Id")),
+        //                    Title = reader.GetString(reader.GetOrdinal("Title")),
+        //                    Content = reader.GetString(reader.GetOrdinal("Content")),
+        //                    ImageLocation = DbUtils.GetNullableString(reader, "HeaderImage"),
+        //                    CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
+        //                    PublishDateTime = DbUtils.GetNullableDateTime(reader, "PublishDateTime"),
+        //                    CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId")),
+        //                    UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId"))
+        //                };
+
+        //                reader.Close();
+        //                return post;
+        //            }
+        //            else
+        //            {
+        //                reader.Close();
+        //                return null;
+        //            }
         //        }
         //    }
         //}
+        public void EditPost(Post post)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                            UPDATE Post
+                            SET 
+                                Title = @title, 
+                                Content = @content, 
+                                CategoryId = @categoryid, 
+                                ImageLocation = @headerimage,
+                                PublishDateTime = @PublishDateTime
+                            WHERE Id = @id";
+
+                    cmd.Parameters.AddWithValue("@title", post.Title);
+                    cmd.Parameters.AddWithValue("@content", post.Content);
+                    cmd.Parameters.AddWithValue("@categoryid", post.CategoryId);
+                    cmd.Parameters.AddWithValue("@headerimage", DbUtils.ValueOrDBNull(post.ImageLocation));
+                    cmd.Parameters.AddWithValue("@PublishDateTime", DbUtils.ValueOrDBNull(post.PublishDateTime));
+                    cmd.Parameters.AddWithValue("@id", post.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
 
         private Post NewPostFromReader(SqlDataReader reader)
         {

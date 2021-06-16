@@ -60,17 +60,15 @@ namespace Tabloid.Controllers
         //}
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id)
+        public IActionResult Put(int id, Post post)
 
         {
-            Post post = _postRepository.GetSinglePostById(id);
-
-            if (post == null)
+            if (id != post.Id)
             {
                 return BadRequest();
             }
 
-            _postRepository.EditPost(id);
+            _postRepository.EditPost(post);
             return NoContent();
         }
     }
