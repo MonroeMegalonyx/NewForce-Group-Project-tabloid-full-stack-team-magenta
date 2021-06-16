@@ -110,9 +110,10 @@ namespace Tabloid.Repositories
                 {
                     cmd.CommandText = @"
                         UPDATE Category
-                           SET Name = @Name,
+                           SET Name = @Name
                          WHERE Id = @Id";
 
+                    DbUtils.AddParameter(cmd, "@Id", category.Id);
                     DbUtils.AddParameter(cmd, "@Name", category.Name);
 
                     cmd.ExecuteNonQuery();
