@@ -6,7 +6,7 @@ export const PostContext = React.createContext();
 export const PostProvider = (props) => {
   const [posts, setPosts] = useState([]);
   const [post, setPost] = useState({});
-  const [response, setResponse] = useState(null);
+  const [response, setResponse] = useState(0);
   const { getToken } = useContext(UserProfileContext);
 
   const getAllPosts = () => {
@@ -29,7 +29,10 @@ export const PostProvider = (props) => {
         },
       })
         .then((res) => res.json())
-        .then(setPost)
+        .then((res) => {
+          setPost(res)
+          return post // return the post to get editable data in form
+        })
     );
   };
 
@@ -61,16 +64,18 @@ export const PostProvider = (props) => {
             // accessing the entries
             if (pair[0] === "location") {
               // key I'm looking for in this instance
-
+              
               setResponse(
-                pair[1].split("=")[1] // saving that value where I can use it
+                pair[1].split("api/Post/")[1] // saving that value where I can use it
               );
             }
           }
+          
           return response.json();
         })
     );
   };
+
   const deletePost = (id) => {
     return getToken().then((token) =>
       fetch(`/api/post/${id}`, {

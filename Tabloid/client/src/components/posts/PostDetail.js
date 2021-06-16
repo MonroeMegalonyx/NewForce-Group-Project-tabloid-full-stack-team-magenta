@@ -41,9 +41,6 @@ export const PostDetail = () => {
     }
   }
 
-  console.log(loggedInUserId)
-  console.log(post.userProfile?.id)
-
   return (
     <Card className="m-4">
       <p className="text-left px-2">
