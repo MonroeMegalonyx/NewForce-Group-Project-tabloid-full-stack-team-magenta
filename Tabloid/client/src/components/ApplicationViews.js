@@ -12,6 +12,7 @@ import TagList from "./tagComponents/TagList";
 import AddTagForm from "./tagComponents/AddTagForm"
 import CategoryList from "./Category/CategoryList"
 import CreateCategory from "./Category/AddCategory"
+import EditCategory from "./Category/EditCategory";
 import EditTagForm from "./tagComponents/EditTagForm"
 
 export default function ApplicationViews() {
@@ -46,6 +47,10 @@ export default function ApplicationViews() {
 
         <Route path="/category/create" exact>
           {isLoggedIn ? <CreateCategory /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route path="/category/edit/:categoryId(\d+)" exact>
+          {isLoggedIn ? <EditCategory /> : <Redirect to="/login" />}
         </Route>
 
         <Route path="/tags" exact>
