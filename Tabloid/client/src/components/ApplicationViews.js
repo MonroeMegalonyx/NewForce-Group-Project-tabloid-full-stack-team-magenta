@@ -12,6 +12,8 @@ import TagList from "./tagComponents/TagList";
 import AddTagForm from "./tagComponents/AddTagForm"
 import CategoryList from "./Category/CategoryList"
 import CreateCategory from "./Category/AddCategory"
+import EditCategory from "./Category/EditCategory";
+import EditTagForm from "./tagComponents/EditTagForm"
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -42,7 +44,7 @@ export default function ApplicationViews() {
         <Route path="/posts/edit/(\d+)" exact>
           {isLoggedIn ? <PostForm /> : <Redirect to="/login" />}
         </Route>
-        
+
         <Route path="/category" exact>
           {isLoggedIn ? <CategoryList /> : <Redirect to="/login" />}
         </Route>
@@ -51,11 +53,19 @@ export default function ApplicationViews() {
           {isLoggedIn ? <CreateCategory /> : <Redirect to="/login" />}
         </Route>
 
+        <Route path="/category/edit/:categoryId(\d+)" exact>
+          {isLoggedIn ? <EditCategory /> : <Redirect to="/login" />}
+        </Route>
+
         <Route path="/tags" exact>
           {isLoggedIn ? <TagList /> : <Redirect to="/login" />}
         </Route>
         <Route path="/tags/addForm" exact>
           {isLoggedIn ? <AddTagForm /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route path="/tags/edit/(\d+)" exact>
+          {isLoggedIn ? <EditTagForm /> : <Redirect to="/login" />}
         </Route>
 
         <Route path="/login">

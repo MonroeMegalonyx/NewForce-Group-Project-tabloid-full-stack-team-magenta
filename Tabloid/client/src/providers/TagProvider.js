@@ -48,6 +48,31 @@ export function TagProvider(props){
       .then(getAllTags);
   }
 
+  const getSingleTag = (id) => {
+    return getToken().then((token) =>
+      fetch(`/api/tag/${id}`, {
+        // method: "UPDATE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+    );
+  };
+
+  const editTag = (tag) => {
+    return getToken().then((token) =>
+    fetch(`/api/tag/${tag.id}`, {
+      method: "PUT",
+      headers: {
+          Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+        },
+      body: JSON.stringify(tag),
+    }) 
+    );
+  };
+
   return (
     <TagContext.Provider
       value={{
@@ -55,6 +80,8 @@ export function TagProvider(props){
         getAllTags,
         addTag,
         deleteTag,
+        getSingleTag,
+        editTag,
       }}
     >
       {props.children}

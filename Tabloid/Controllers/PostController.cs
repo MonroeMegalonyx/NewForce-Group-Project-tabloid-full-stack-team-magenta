@@ -52,12 +52,12 @@ namespace Tabloid.Controllers
             return CreatedAtAction("Get", new { id = post.Id }, post);
         }
 
-        //[HttpDelete("{id}")]
-        //public IActionResult Delete(int id)
-        //{
-        //    _postRepository.DeletePost(id);
-        //    return NoContent();
-        //}
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _postRepository.DeletePost(id);
+            return NoContent();
+        }
 
         [HttpPut("{id}")]
         public IActionResult Put(int id, Post post)

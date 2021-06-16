@@ -27,27 +27,25 @@ export default function Tag({ tag }) {
       <CardBody>
         <strong>{tag.name}</strong>
         <div>
-          <input
-            type="button"
-            value="Delete"
-            onClick={togglePopup}
-          />
+          <input type="button" value="Delete" onClick={togglePopup} />
           {isOpen && (
             <Popup
               content={
                 <>
                   <b>Are you sure you want to delete this Tag?</b>
-                  <p>
-                  </p>
+                  <p></p>
                   <button onClick={handleDelete}>Confirm</button>
                   <button onClick={togglePopup}>Cancel</button>
                 </>
               }
-               handleClose={togglePopup}
+              handleClose={togglePopup}
             />
           )}
         </div>
       </CardBody>
+      <Button onClick={() => history.push(`/tags/edit/${tag.id}`)}>
+        Edit Tag
+      </Button>
       {/* <Button onClick={handleDelete}>Delete Tag</Button> */}
     </Card>
   );

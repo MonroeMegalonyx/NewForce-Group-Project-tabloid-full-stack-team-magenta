@@ -157,71 +157,26 @@ namespace Tabloid.Repositories
             }
         }
 
-        //public void DeletePost(int postId)
-        //{
-        //    using (SqlConnection conn = Connection)
-        //    {
-        //        conn.Open();
+        public void DeletePost(int postId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
 
-        //        using (SqlCommand cmd = conn.CreateCommand())
-        //        {
-        //            cmd.CommandText = @"
-        //                    DELETE FROM Post
-        //                    WHERE Id = @id
-        //                ";
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                            DELETE FROM Post
+                            WHERE Id = @id
+                        ";
 
-        //            cmd.Parameters.AddWithValue("@id", postId);
+                    cmd.Parameters.AddWithValue("@id", postId);
 
-        //            cmd.ExecuteNonQuery();
-        //        }
-        //    }
-        //}
-
-        //public Post EditPost(int id)
-        //{
-        //    using (SqlConnection conn = Connection)
-        //    {
-        //        conn.Open();
-        //        using (SqlCommand cmd = conn.CreateCommand())
-        //        {
-        //            cmd.CommandText = @"
-        //                SELECT p.Id, p.Title, p.Content, 
-        //                      p.ImageLocation AS HeaderImage,
-        //                      p.CreateDateTime, p.PublishDateTime, p.IsApproved,
-        //                      p.CategoryId, p.UserProfileId
-        //                FROM Post p
-        //                WHERE Id = @id
-        //            ";
-
-        //            cmd.Parameters.AddWithValue("@id", id);
-
-        //            SqlDataReader reader = cmd.ExecuteReader();
-
-        //            if (reader.Read())
-        //            {
-        //                Post post = new Post
-        //                {
-        //                    Id = reader.GetInt32(reader.GetOrdinal("Id")),
-        //                    Title = reader.GetString(reader.GetOrdinal("Title")),
-        //                    Content = reader.GetString(reader.GetOrdinal("Content")),
-        //                    ImageLocation = DbUtils.GetNullableString(reader, "HeaderImage"),
-        //                    CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
-        //                    PublishDateTime = DbUtils.GetNullableDateTime(reader, "PublishDateTime"),
-        //                    CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId")),
-        //                    UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId"))
-        //                };
-
-        //                reader.Close();
-        //                return post;
-        //            }
-        //            else
-        //            {
-        //                reader.Close();
-        //                return null;
-        //            }
-        //        }
-        //    }
-        //}
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        
         public void EditPost(Post post)
         {
             using (SqlConnection conn = Connection)
