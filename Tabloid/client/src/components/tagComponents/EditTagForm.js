@@ -36,25 +36,28 @@ export const EditTagForm = () => {
       
 
     return (
-        <>
-      <Form onSubmit={submitForm}>
-        <FormGroup>
-          <Label for="tagText">Edit Tag: </Label>
-          <Input
-            id="name"
-            type="text"
-            value={singleTag.name}
-            onChange={(e) => {
-               const  state = {...singleTag}
-            state[e.target.id] = e.target.value;
-                setSingleTag(state)
-            }}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Button disabled={isLoading}>Save Tag</Button>
-        </FormGroup>
-      </Form>
+      <>
+        <Form onSubmit={submitForm}>
+          <FormGroup>
+            <Label for="tagText">Edit Tag: </Label>
+            <Input
+              id="name"
+              type="text"
+              value={singleTag.name}
+              onChange={(e) => {
+                const state = { ...singleTag };
+                state[e.target.id] = e.target.value;
+                setSingleTag(state);
+              }}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Button disabled={isLoading}>Save Tag</Button>
+          </FormGroup>
+          <FormGroup>
+            <Button onClick={() => history.push("/tags")}>Cancel</Button>
+          </FormGroup>
+        </Form>
       </>
     );
 };
