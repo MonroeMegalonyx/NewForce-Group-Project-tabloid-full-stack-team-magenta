@@ -33,27 +33,38 @@ export const CategoryProvider = (props) => {
                 body: JSON.stringify(category)
             }));
 
-    const updateCategory = (categoryId) =>
+    const updateCategory = (category) =>
         getToken().then((token) =>
-            fetch(`/api/category/${categoryId}`, {
+            fetch(`/api/category/${category.id}`, {
                 method: "PUT",
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json"
                 }, body: JSON.stringify(category)
-            }).then(getAllCategories));
+            }));
 
     const deleteCategory = (categoryId) =>
         getToken().then((token) =>
             fetch(`/api/category/${categoryId}`, {
                 method: "DELETE",
                 headers: {
-                    Authorization: `Bearer ${token}`                
-                }}).then(getAllCategories));
-    
+                    Authorization: `Bearer ${token}`
+                }
+            }).then(getAllCategories));
+
+    const getCategoryById = (categoryId) => {
+        return getToken().then((token) =>
+            fetch(`/api/category/${categoryId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+                .then((res) => res.json())
+        );
+    };
 
     return (
-        <CategoryContext.Provider value={{ category, getAllCategories, addCategory, deleteCategory, updateCategory }}>
+        <CategoryContext.Provider value={{ category, getAllCategories, addCategory, deleteCategory, updateCategory, getCategoryById }}>
             {props.children}
         </CategoryContext.Provider>
     );
