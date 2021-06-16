@@ -61,9 +61,9 @@ export const PostProvider = (props) => {
             // accessing the entries
             if (pair[0] === "location") {
               // key I'm looking for in this instance
-               
+
               setResponse(
-                pair[1].split('=')[1] // saving that value where I can use it
+                pair[1].split("=")[1] // saving that value where I can use it
               );
             }
           }
@@ -71,33 +71,44 @@ export const PostProvider = (props) => {
         })
     );
   };
-    const editPost = (id, post) => {
-      return getToken().then((token) =>
-        fetch(`/api/post/${id}`, {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(post),
-        })
-      );
-  };
-
-    const deletePost = (id) => {
-      return getToken().then((token) =>
-      fetch(`/api/post/${id}`,{
+  const deletePost = (id) => {
+    return getToken().then((token) =>
+      fetch(`/api/post/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      })
-        .then(getAllPosts)
+      }).then(getAllPosts)
     );
   };
-    
+  const editPost = (id, post) => {
+    return getToken().then((token) =>
+      fetch(`/api/post/${id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(post),
+      })
+    );
+  };
+
   return (
-    <PostContext.Provider value={{ posts, post, getAllPosts, getSinglePost, getUsersPosts, addPost, deletePost, editPost, response, setResponse }}>
+    <PostContext.Provider
+      value={{
+        posts,
+        post,
+        getAllPosts,
+        getSinglePost,
+        getUsersPosts,
+        addPost,
+        deletePost,
+        editPost,
+        response,
+        setResponse,
+      }}
+    >
       {props.children}
     </PostContext.Provider>
   );
