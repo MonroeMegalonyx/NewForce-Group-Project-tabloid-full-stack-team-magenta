@@ -3,6 +3,9 @@ import { PostContext } from "../.././providers/PostProvider";
 import { CategoryContext } from "../../providers/CategoryProvider";
 import { Redirect } from "react-router-dom";
 
+// Consider: What is different when we add an animal vs. edit? In edit mode, we should have an animalId in the URL. Otherwise, it is a new animal.
+
+
 const PostForm = () => {
   const { addPost, response, setResponse } = useContext(PostContext);
   // get the categories for a dropdown selector
