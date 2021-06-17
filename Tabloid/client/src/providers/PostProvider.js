@@ -5,8 +5,8 @@ export const PostContext = React.createContext();
 
 export const PostProvider = (props) => {
   const [posts, setPosts] = useState([]);
-  const [post, setPost] = useState({});
-  const [response, setResponse] = useState(null);
+  // const [post, setPost] = useState({});
+  const [response, setResponse] = useState(0);
   const { getToken } = useContext(UserProfileContext);
 
   const getAllPosts = () => {
@@ -29,9 +29,9 @@ export const PostProvider = (props) => {
         },
       })
         .then((res) => res.json())
-        .then(setPost)
-    );
-  };
+    
+        //.then(setPost(res)
+    )};
 
   const getUsersPosts = (id) => {
     return getToken().then((token) =>
@@ -61,31 +61,56 @@ export const PostProvider = (props) => {
             // accessing the entries
             if (pair[0] === "location") {
               // key I'm looking for in this instance
-               
+              
               setResponse(
-                pair[1].split('=')[1] // saving that value where I can use it
+                pair[1].split("api/Post/")[1] // saving that value where I can use it
               );
             }
           }
+          
           return response.json();
         })
     );
   };
-    const deletePost = (id) => {
-      return getToken().then((token) =>
-      fetch(`/api/post/${id}`,{
+
+  const deletePost = (id) => {
+    return getToken().then((token) =>
+      fetch(`/api/post/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      })
-        .then(getAllPosts)
+      }).then(getAllPosts)
     );
   };
-    
+
+  const editPost = (id, post) => {
+    return getToken().then((token) =>
+      fetch(`/api/post/${id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(post),
+      })
+    );
+  };
 
   return (
-    <PostContext.Provider value={{ posts, post, getAllPosts, getSinglePost, getUsersPosts, addPost, deletePost, response, setResponse }}>
+    <PostContext.Provider
+      value={{
+        posts,
+        getAllPosts,
+        getSinglePost,
+        getUsersPosts,
+        addPost,
+        deletePost,
+        editPost,
+        response,
+        setResponse,
+      }}
+    >
       {props.children}
     </PostContext.Provider>
   );

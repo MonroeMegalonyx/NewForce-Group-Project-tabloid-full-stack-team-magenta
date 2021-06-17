@@ -33,7 +33,7 @@ const UserPostList = () => {
             .sort(function (a, b) {
               // Turn your strings into dates, and then subtract them
               // to get a value that is either negative, positive, or zero.
-              return new Date(b.publishDateTime) - new Date(a.publishDateTime);
+              return new Date(b.createDateTime) - new Date(a.createDateTime);
             })
             .map((post) => (
               <Post key={post.id} post={post} />

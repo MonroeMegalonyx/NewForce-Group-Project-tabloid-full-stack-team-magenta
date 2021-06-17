@@ -10,6 +10,6 @@ namespace Tabloid.Repositories
         Post GetSinglePostById(int id);
         void AddPost(Post post);
         void DeletePost(int PostId);
-        //Post EditPost(int id);
+        void EditPost(Post post);
     }
 }
