@@ -6,11 +6,11 @@ import { useParams, useHistory } from "react-router-dom";
 import Button from "reactstrap/lib/Button";
 
 
-// Consider: What is different when we add an animal vs. edit? In edit mode, we should have an animalId in the URL. Otherwise, it is a new animal.
+// Consider: What is different when we add an post vs. edit? In edit mode, we should have an postId in the URL. Otherwise, it is a new post.
 
 const PostForm = () => {
   // Get the content for posts to add or edit, and check the Id from response of a newly added post
-  const { post, addPost, getSinglePost, editPost, response, setResponse } = useContext(PostContext);
+  const { addPost, getSinglePost, editPost, response } = useContext(PostContext);
   // Get the categories for a dropdown selector in form
   const { category, getAllCategories } = useContext(CategoryContext);
 
@@ -20,7 +20,7 @@ const PostForm = () => {
   var tzoffset = new Date().getTimezoneOffset() * 60000; //gets offset in milliseconds
 
   // Define the inital state of a new post
-  const [postState, setPost] = useState({
+  const [postState, setPostState] = useState({
      title: null,
      content: null,
      imageLocation: null,
@@ -51,7 +51,7 @@ const PostForm = () => {
       using object bracket notation. */
     newPost[event.target.id] = event.target.value;
     // Update original state with new values from user input 
-    setPost(newPost);
+    setPostState(newPost);
   };
 
   const handleClickSavePost = (event) => {
@@ -104,8 +104,7 @@ const PostForm = () => {
       if (postId){
         getSinglePost(postId)
         .then(post => {
-            
-          setPost(post)
+          setPostState(post)
             setIsLoading(false)
         })
       } else {

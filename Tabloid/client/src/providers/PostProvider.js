@@ -5,7 +5,7 @@ export const PostContext = React.createContext();
 
 export const PostProvider = (props) => {
   const [posts, setPosts] = useState([]);
-  const [post, setPost] = useState({});
+  // const [post, setPost] = useState({});
   const [response, setResponse] = useState(0);
   const { getToken } = useContext(UserProfileContext);
 
@@ -29,12 +29,9 @@ export const PostProvider = (props) => {
         },
       })
         .then((res) => res.json())
-        .then((res) => {
-          setPost(res)
-          return post // return the post to get editable data in form
-        })
-    );
-  };
+    
+        //.then(setPost(res)
+    )};
 
   const getUsersPosts = (id) => {
     return getToken().then((token) =>
@@ -86,6 +83,7 @@ export const PostProvider = (props) => {
       }).then(getAllPosts)
     );
   };
+
   const editPost = (id, post) => {
     return getToken().then((token) =>
       fetch(`/api/post/${id}`, {
@@ -103,7 +101,6 @@ export const PostProvider = (props) => {
     <PostContext.Provider
       value={{
         posts,
-        post,
         getAllPosts,
         getSinglePost,
         getUsersPosts,

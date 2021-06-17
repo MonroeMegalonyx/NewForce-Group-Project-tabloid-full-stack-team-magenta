@@ -31,7 +31,7 @@ const Post = ({ post }) => {
       <Button onClick={() => history.push(`/posts/details/${post.id}`)}>
         Read Post
       </Button>
-      {post.userProfile?.id==loggedInUserId ? <Button onClick={() => history.push(`/posts/edit/${post.id}`)}>Edit this Post</Button> : null}
+      {post.userProfile?.id===parseInt(loggedInUserId) ? <Button onClick={() => history.push(`/posts/edit/${post.id}`)}>Edit this Post</Button> : null}
     </Card>
   );
 };
