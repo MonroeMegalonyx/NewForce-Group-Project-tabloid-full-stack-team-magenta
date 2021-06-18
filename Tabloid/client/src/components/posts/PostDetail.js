@@ -65,7 +65,7 @@ export const PostDetail = () => {
           <i>Category: {postState.category?.name}</i>
         </p>
         <Button onClick={() => history.push(`/posts`)}>Return to List</Button>
-        <button onClick={() => {history.push(`/posts/comments/${postState.id}`)}}>View Comments</button>
+        <Button onClick={() => {history.push(`/posts/comments/${postState.id}`)}}>View Comments</Button>
         {postState.userProfile?.id===parseInt(loggedInUserId) ? <Button onClick={() => history.push(`/posts/edit/${postState.id}`)}>Edit this Post</Button> : null}
         {postState.userProfile?.id===parseInt(loggedInUserId) ? <Button onClick={handleDelete}>Delete this Post</Button> : null}
       </CardBody>
