@@ -64,16 +64,11 @@ export const PostDetail = () => {
         <p>
           <i>Category: {postState.category?.name}</i>
         </p>
-<<<<<<< HEAD
-        <button onClick={() => {history.push(`/posts/comments/${post.id}`)}}>View Comments</button>
-        {post.userProfile?.id==loggedInUserId ? <button onClick={handleDelete}>Delete this Post</button> : null}
-       </CardBody>
-=======
         <Button onClick={() => history.push(`/posts`)}>Return to List</Button>
+        <button onClick={() => {history.push(`/posts/comments/${postState.id}`)}}>View Comments</button>
         {postState.userProfile?.id===parseInt(loggedInUserId) ? <Button onClick={() => history.push(`/posts/edit/${postState.id}`)}>Edit this Post</Button> : null}
         {postState.userProfile?.id===parseInt(loggedInUserId) ? <Button onClick={handleDelete}>Delete this Post</Button> : null}
       </CardBody>
->>>>>>> main
     </Card>
   );
 };
