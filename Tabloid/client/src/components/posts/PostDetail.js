@@ -1,20 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
 import { PostContext } from "../.././providers/PostProvider";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { Card, CardImg, CardBody } from "reactstrap";
-import { useHistory } from "react-router-dom";
+import Button from "reactstrap/lib/Button";
 
 export const PostDetail = () => {
-  const { getSinglePost, post, deletePost } = useContext(PostContext);
-  const history = useHistory();
+  const { getSinglePost, deletePost } = useContext(PostContext);
+  const [postState, setPostState] = useState({});
 
   const postId = useParams()[0];
+  const history = useHistory();
 
   // Get the details of the psot
   useEffect(() => {
-    console.log("useEffect", postId);
-    getSinglePost(postId);
-  }, []);
+    //console.log("useEffect", postId);
+    getSinglePost(postId)
+    .then(post => {
+      setPostState(post)
+    })  }, []);
 
   // Get the user ID to show delete button
   const loggedInUser = sessionStorage.getItem("userProfile");
@@ -28,9 +31,9 @@ export const PostDetail = () => {
 
   // Delete the post after confirmation if its the user's post
   const handleDelete = () => {
-    const r = window.confirm(`Are you sure you want to delete "${post.title}"?`)
+    const r = window.confirm(`Are you sure you want to delete "${postState.title}"?`)
     if (r === true) {
-      deletePost(post.id)
+      deletePost(postState.id)
         .then(() => {
           history.push("/posts")
         })
@@ -41,28 +44,37 @@ export const PostDetail = () => {
     }
   }
 
-  console.log(loggedInUserId)
-  console.log(post.userProfile?.id)
-
   return (
     <Card className="m-4">
-      <p className="text-left px-2">Posted by: {post.userProfile?.displayName}</p>
-      {post.publishDateTime != null ? <p className="text-left px-2">Published on: {post.publishDateTime}</p> : <i className="text-left px-2">Not published</i>}
-      <CardImg top src={post.imageLocation} alt={post.title} />
+      <p className="text-left px-2">
+        Posted by: {postState.userProfile?.displayName}
+      </p>
+      {postState.publishDateTime != null ? (
+        <p className="text-left px-2">Published on: {postState.publishDateTime}</p>
+      ) : (
+        <i className="text-left px-2">Not published</i>
+      )}
+      <CardImg top src={postState.imageLocation} alt={postState.title} />
       <CardBody>
         <p>
-          <strong>{post.title}</strong>
+          <strong>{postState.title}</strong>
         </p>
-        <p>{post.content}</p>
+        <p>{postState.content}</p>
 
         <p>
-          <i>Category: {post.category?.name}</i>
+          <i>Category: {postState.category?.name}</i>
         </p>
+<<<<<<< HEAD
         <button onClick={() => {history.push(`/posts/comments/${post.id}`)}}>View Comments</button>
         {post.userProfile?.id==loggedInUserId ? <button onClick={handleDelete}>Delete this Post</button> : null}
        </CardBody>
+=======
+        <Button onClick={() => history.push(`/posts`)}>Return to List</Button>
+        {postState.userProfile?.id===parseInt(loggedInUserId) ? <Button onClick={() => history.push(`/posts/edit/${postState.id}`)}>Edit this Post</Button> : null}
+        {postState.userProfile?.id===parseInt(loggedInUserId) ? <Button onClick={handleDelete}>Delete this Post</Button> : null}
+      </CardBody>
+>>>>>>> main
     </Card>
-
   );
 };
 

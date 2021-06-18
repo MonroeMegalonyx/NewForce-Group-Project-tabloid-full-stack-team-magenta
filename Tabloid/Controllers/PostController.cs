@@ -59,17 +59,18 @@ namespace Tabloid.Controllers
             return NoContent();
         }
 
-        //[HttpPut("{id}")]
-        //public IActionResult Put(int id, Post post)
-        //{
-        //    if (id != post.Id)
-        //    {
-        //        return BadRequest();
-        //    }
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Post post)
 
-        //    _postRepository.EditPost(post);
-        //    return NoContent();
-        //}
+        {
+            if (id != post.Id)
+            {
+                return BadRequest();
+            }
+
+        _postRepository.EditPost(post);
+        return NoContent();
+        }
 
         [HttpGet("GetPostWithComments/{id}")]
         public IActionResult GetPostByIdWithComments(int id)
