@@ -14,6 +14,7 @@ import CategoryList from "./Category/CategoryList"
 import CreateCategory from "./Category/AddCategory"
 import EditCategory from "./Category/EditCategory";
 import EditTagForm from "./tagComponents/EditTagForm"
+import PostComments from "./Comments/PostComments";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -40,6 +41,10 @@ export default function ApplicationViews() {
         <Route path="/posts/user" exact>
           {isLoggedIn ? <UserPostList /> : <Redirect to="/login" />}
         </Route>
+
+        <Route path="/posts/comments/:postId(\d+)" exact>
+          {isLoggedIn ? <PostComments /> : <Redirect to="/login" />}
+        </Route>        
 
         <Route path="/category" exact>
           {isLoggedIn ? <CategoryList /> : <Redirect to="/login" />}

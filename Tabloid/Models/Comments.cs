@@ -19,6 +19,7 @@ namespace Tabloid.Models
         [Required]
         [DisplayName("UserProfile")]
         public int UserProfileId { get; set; }
+        public UserProfile UserProfile { get; set; }
 
         [Required]
         [MaxLength(255)]

@@ -296,7 +296,7 @@ namespace Tabloid.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                SELECT p.Id, p.Title, p.Content, 
+                            SELECT p.Id, p.Title, p.Content, 
                               p.ImageLocation AS HeaderImage,
                               p.CreateDateTime as PostCreateDate, p.PublishDateTime, p.IsApproved,
                               p.CategoryId, p.UserProfileId as PostProfileId,
@@ -309,16 +309,17 @@ namespace Tabloid.Repositories
 
                               ut.[Name] AS UserTypeName,
 
-                              com.Id AS CommentId, com.PostId, com.UserProfileId as CommentProfileId, 
+                              com.Id AS CommentId, com.PostId, comm.UserProfileId as CommentProfileId, 
                               com.Subject, com.Content, com.CreateDateTime as CommentDate  
 
                          FROM Post p
                               LEFT JOIN Category c ON p.CategoryId = c.id
                               LEFT JOIN UserProfile u ON p.UserProfileId = u.id
                               LEFT JOIN UserType ut ON u.UserTypeId = ut.id
-                              LEFT JOIN Comment com on p.Id = com.PostId
+                              LEFT JOIN Comment com on p.Id = com.PostId 
+                              LEFT JOIN Comment comm on u.Id = comm.UserProfileId
 
-                        WHERE p.Id = @postId";
+                        WHERE p.Id = @Id";
 
                     DbUtils.AddParameter(cmd, "@Id", postId);
 
@@ -371,6 +372,22 @@ namespace Tabloid.Repositories
                                 Id = DbUtils.GetInt(reader, "CommentId"),
                                 PostId = postId,
                                 UserProfileId = DbUtils.GetInt(reader, "UserId"),
+                                UserProfile = new UserProfile()
+                                {
+                                    Id = reader.GetInt32(reader.GetOrdinal("PostProfileId")),
+                                    DisplayName = reader.GetString(reader.GetOrdinal("DisplayName")),
+                                    FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                                    LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                                    Email = reader.GetString(reader.GetOrdinal("Email")),
+                                    CreateDateTime = reader.GetDateTime(reader.GetOrdinal("UserCreateDate")),
+                                    ImageLocation = DbUtils.GetNullableString(reader, "AvatarImage"),
+                                    UserTypeId = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
+                                    UserType = new UserType()
+                                    {
+                                        Id = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
+                                        Name = reader.GetString(reader.GetOrdinal("UserTypeName"))
+                                    }
+                                },
                                 Subject = DbUtils.GetString(reader, "Subject"),
                                 Content = DbUtils.GetString(reader, "Content"),
                                 CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CommentDate"))

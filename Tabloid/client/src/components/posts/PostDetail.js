@@ -58,7 +58,7 @@ export const PostDetail = () => {
         <p>
           <i>Category: {post.category?.name}</i>
         </p>
-        <button onClick={handleDelete}>View Comments</button>
+        <button onClick={() => {history.push(`/posts/comments/${post.id}`)}}>View Comments</button>
         {post.userProfile?.id==loggedInUserId ? <button onClick={handleDelete}>Delete this Post</button> : null}
        </CardBody>
     </Card>
