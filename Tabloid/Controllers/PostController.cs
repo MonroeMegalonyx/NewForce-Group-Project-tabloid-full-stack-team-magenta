@@ -68,8 +68,19 @@ namespace Tabloid.Controllers
                 return BadRequest();
             }
 
-            _postRepository.EditPost(post);
-            return NoContent();
+        _postRepository.EditPost(post);
+        return NoContent();
+        }
+
+        [HttpGet("GetPostWithComments/{id}")]
+        public IActionResult GetPostByIdWithComments(int id)
+        {
+            var post = _postRepository.GetPostByIdWithComments(id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+            return Ok(post);
         }
     }
 }
