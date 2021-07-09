@@ -58,7 +58,7 @@ Authentication was integrated with Google Firebase to provide reliable and secur
 ### Posts
 Posts can be accessed once logged in. This feature will allow a user to view published posts from themselves and other users. A user can also see just a list of posts they created, including ones that haven't been approved or given a publication date yet. Users can edit or delete their own posts, but all users can read each published post. All posts appear with the most recently published shown first. 
 
-On the details page, users can also chose to view comments if any have been left. Users can also create a new post by clicked the New Post button at the top of either page for posts. Posts are only published if given a publication date. This component is reused from the Edit Post form according to best practices.
+On the details page, users can also chose to view comments if any have been left. Users can also create a new post by clicking the New Post button at the top of either page for posts. Posts are only published if given a publication date. This component is reused from the Edit Post form according to best practices.
 
 |![Published Posts Page](/images/Posts.png)|
 |---|
@@ -66,7 +66,7 @@ On the details page, users can also chose to view comments if any have been left
 
 |![User Post Page](/images/User-Posts.png)|
 |---|
-| *Screenshot of the posts page showing the list of posts created by the loggen in user.* |
+| *Screenshot of the posts page showing the list of posts created by the logged in user.* |
 
 |![Deatil Post Page](/images/Details-Post.png)|
 |---|
